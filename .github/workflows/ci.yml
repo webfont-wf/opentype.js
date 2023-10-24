@@ -9,6 +9,11 @@ on:
 jobs:
   install-build-test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ 18, 20 ]
+    name: Node ${{ matrix.node }} sample
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -16,7 +21,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: ${{ matrix.node }}
 
       - uses: pnpm/action-setup@v2
         name: Install pnpm
